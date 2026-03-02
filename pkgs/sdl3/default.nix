@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = with pkgs; [
-    xorg.libX11
+    libX11
   ];
 
   cmakeFlags = [

@@ -3,29 +3,24 @@
     "bgfx-cmake": {
       "flake": false,
       "locked": {
-        "lastModified": 1770083175,
-        "narHash": "sha256-asl0usqCzUbhWsN5BuO+JLd53oBQk7FGICWBa0WLjkQ=",
-        "ref": "refs/heads/master",
-        "rev": "fc0cada1ebab18cd9a5f602189065695953a19d5",
-        "revCount": 511,
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/bkaradzic/bgfx.cmake?ref=v1.136.9135-511"
+        "lastModified": 1771628981,
+        "narHash": "sha256-R0HInY7BcaRoc0kHrpp+2MMnhLHI1zer7gw7/XlmGZQ=",
+        "type": "tarball",
+        "url": "https://github.com/bkaradzic/bgfx.cmake/releases/download/v1.139.9155-513/bgfx.cmake.v1.139.9155-513.tar.gz"
       },
       "original": {
-        "submodules": true,
-        "type": "git",
-        "url": "https://github.com/bkaradzic/bgfx.cmake?ref=v1.136.9135-511"
+        "type": "tarball",
+        "url": "https://github.com/bkaradzic/bgfx.cmake/releases/download/v1.136.9135-511/bgfx.cmake.v1.136.9135-511.tar.gz"
       }
     },
     "bgfx-patch": {
       "flake": false,
       "locked": {
-        "lastModified": 1770141832,
-        "narHash": "sha256-c0qsgp86RibuLCvYOs+jtOve+7Kmt6EBrlX0xf2taFc=",
+        "lastModified": 1772297728,
+        "narHash": "sha256-IXJ+8yzwwnBxD3XzZtFVjJbTPcrqiWMg0gUr+1D0eoQ=",
         "owner": "vbousquet",
         "repo": "bgfx",
-        "rev": "fe2adc445ddd3906771e8242168a0aa58db94ee4",
+        "rev": "4e6ead1ec5f3ea47664fb6f77b20f799d1bd02ed",
         "type": "github"
       },
       "original": {
@@ -292,11 +287,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1770181073,
-        "narHash": "sha256-ksTL7P9QC1WfZasNlaAdLOzqD8x5EPyods69YBqxSfk=",
+        "lastModified": 1771848320,
+        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bf922a59c5c9998a6584645f7d0de689512e444c",
+        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
         "type": "github"
       },
       "original": {
@@ -348,17 +343,19 @@
         "sdl3-image": "sdl3-image",
         "sdl3-ttf": "sdl3-ttf",
         "sockpp": "sockpp",
-        "vpinball": "vpinball"
+        "vpinball": "vpinball",
+        "vpinfe": "vpinfe",
+        "vpxtool": "vpxtool"
       }
     },
     "sdl3": {
       "flake": false,
       "locked": {
-        "lastModified": 1767228234,
-        "narHash": "sha256-/A1y/NaZVebzI58F4TlwtDwuzlcA33Y1YuZqd5lz/Sk=",
+        "lastModified": 1771629149,
+        "narHash": "sha256-ev0QiKyj0O6gtk7cK/V0X5Noft0Zo/fMS+oM6emwynE=",
         "owner": "libsdl-org",
         "repo": "SDL",
-        "rev": "a962f40bbba175e9716557a25d5d7965f134a3d3",
+        "rev": "683181b47cfabd293e3ea409f838915b8297a4fd",
         "type": "github"
       },
       "original": {
@@ -418,16 +415,49 @@
     "vpinball": {
       "flake": false,
       "locked": {
-        "lastModified": 1771626468,
-        "narHash": "sha256-V0qrCnT0aNNauvTq8EOTg+w17lujHXl8LZxYNnkmU7c=",
+        "lastModified": 1772377065,
+        "narHash": "sha256-cGBxz0YJmULwvZUI1EmiLe8XjgY2ukMghm9m8F5dYXk=",
         "owner": "vpinball",
         "repo": "vpinball",
-        "rev": "01fdcfff6d872745f9d3d72ba115537a3d6ed902",
+        "rev": "96724fab6fd8c7b6f400fa3bcc231ee036e7d4f0",
         "type": "github"
       },
       "original": {
         "owner": "vpinball",
         "repo": "vpinball",
+        "type": "github"
+      }
+    },
+    "vpinfe": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771861701,
+        "narHash": "sha256-bVsKu3jCd1NA/dE4cURyMiFeZu5w1lP33tEhnDArkpA=",
+        "owner": "superhac",
+        "repo": "vpinfe",
+        "rev": "db079d59abbe3b2823354d4dde1075c054a6e0f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "superhac",
+        "repo": "vpinfe",
+        "type": "github"
+      }
+    },
+    "vpxtool": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772446254,
+        "narHash": "sha256-z5RUA67Z8dTDyQJz3zTKHTtuUvPf2TzK8IcPBSypkhk=",
+        "owner": "francisdb",
+        "repo": "vpxtool",
+        "rev": "47909eabaf75f466704eccdfb2e3f1d4a691fbd7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "francisdb",
+        "ref": "v0.26.0",
+        "repo": "vpxtool",
         "type": "github"
       }
     }

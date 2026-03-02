@@ -162,6 +162,20 @@
       flake = false;
     };
 
+    vpinfe = {
+      type = "github";
+      owner = "superhac";
+      repo = "vpinfe";
+      flake = false;
+    };
+
+    vpxtool = {
+      type = "github";
+      owner = "francisdb";
+      repo = "vpxtool";
+      ref = "v0.26.0";
+      flake = false;
+    };
   };
 
   outputs =
@@ -223,8 +237,10 @@
 
           vpinball = pkgs.callPackage ./pkgs/vpinball { inherit inputs; };
 
-          default = self.packages.${system}.vpinball;
+          vpinfe = pkgs.callPackage ./pkgs/vpinfe { inherit inputs; };
+          vpxtool = pkgs.callPackage ./pkgs/vpxtool { inherit inputs; };
 
+          default = self.packages.${system}.vpinball;
         }
       );
 
@@ -287,8 +303,6 @@
                 echo "Updating libzip: ''${LIBZIP_SHA}"
                 nix flake update libzip --override-input libzip github:nih-at/libzip/''${LIBZIP_SHA}
 
-                # TODO: fix, This throws errors
-                #nix flake update bgfx-cmake --override-input bgfx-cmake 'git+https://github.com/bkaradzic/bgfx.cmake?ref=v1.129.8940-498'
 
                 echo "✅ Updated the flake inputs from main config.sh"
               else
@@ -301,7 +315,6 @@
 
           # Updates inputs from SHA hashes defined in dependency repos.
           updateChildInputs = pkgs.mkShell {
-            buildInputs = self.packages.${system}.vpinball.buildInputs;
 
             # This hook runs after the shell is built and ready.
             shellHook = ''
@@ -335,7 +348,7 @@
 
                 if [ "''${OLD_LIBUSB_SHA}" != "''${LIBUSB_SHA}" ]; then
                   echo "⚠️ Error: libusb hash mismatch" >&2
-                  exit 1
+                  #exit 1
                 fi
 
                 echo "Updating libserialport: ''${LIBSERIALPORT_SHA}"

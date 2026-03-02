@@ -51,8 +51,8 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = with pkgs; [
-    xorg.libX11
-    xorg.libxcb
+    libX11
+    libxcb
     libGLU
     wayland
     libglvnd
