@@ -4,6 +4,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    vpx-editor = {
+      type = "github";
+      owner = "jsm174";
+      repo = "vpx-editor";
+      flake = false;
+    };
+
     vpinball = {
       type = "github";
       owner = "vpinball";
@@ -209,6 +216,7 @@
 
       # TODO: convert these from overlays into flake packages.
       overlays.default = final: prev: {
+        vpx-editor = final.callPackage ./pkgs/vpx-editor { inherit inputs; };
         bgfx = final.callPackage ./pkgs/bgfx {
           bgfx-cmake = inputs.bgfx-cmake;
           bgfx-patch = inputs.bgfx-patch;
@@ -246,6 +254,7 @@
 
           vpinfe = pkgs.callPackage ./pkgs/vpinfe { inherit inputs; };
           vpxtool = pkgs.callPackage ./pkgs/vpxtool { inherit inputs; };
+          vpx-editor = pkgs.callPackage ./pkgs/vpx-editor { inherit inputs; };
 
           default = self.packages.${system}.vpinball;
         }
