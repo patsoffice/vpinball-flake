@@ -10,7 +10,11 @@ stdenv.mkDerivation {
   dontBuild = true;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/include
     cp -r include/* $out/include/
+
+    runHook postInstall
   '';
 }
