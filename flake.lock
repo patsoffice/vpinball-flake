@@ -16,11 +16,11 @@
     "bgfx-patch": {
       "flake": false,
       "locked": {
-        "lastModified": 1774965578,
-        "narHash": "sha256-zhd6YPRkdEMgfOky4MgPF7FvLasfdLUHBLwPTYpFaQM=",
+        "lastModified": 1775684234,
+        "narHash": "sha256-FcALQzPYDA/yl3+vWGrPE1fQBwmJlTEzWGVqHoR5yXs=",
         "owner": "vbousquet",
         "repo": "bgfx",
-        "rev": "e264aa35a30ec9d209f08dea361906b4465d49c7",
+        "rev": "80b36da9f1f10d6c3dc2fdde2ade49c39b6797a6",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
     "libdof": {
       "flake": false,
       "locked": {
-        "lastModified": 1775129714,
-        "narHash": "sha256-/1iqM72d98WDmfR/EyUOP+wJKt5tDGG2XYpv1+PG1Mk=",
+        "lastModified": 1776027465,
+        "narHash": "sha256-N+959A9gcZfoCXHUterNP2kEY80d6+wwyh2DUfkQxRA=",
         "owner": "jsm174",
         "repo": "libdof",
-        "rev": "b5119cf7f0846586fbbfbf4e9234ed8541b535ff",
+        "rev": "37005ff75a7d4bb9bb5370acea8cf1c54affba21",
         "type": "github"
       },
       "original": {
@@ -256,11 +256,11 @@
     "libwinevbs": {
       "flake": false,
       "locked": {
-        "lastModified": 1774958353,
-        "narHash": "sha256-kFJ/rnbLOlf/O62axxnyj1MZpLt3ZOh7dxW5EdQZ0s4=",
+        "lastModified": 1775786945,
+        "narHash": "sha256-ZtApO4Pq62eNtEqvCbIqrEu9fzzPmvVera7No1FJ0jU=",
         "owner": "vpinball",
         "repo": "libwinevbs",
-        "rev": "4eb5127dffc713a33cf6c0aa610fbc0a347e226c",
+        "rev": "1062675d097da2a75432a15032f0f7e1b87d572c",
         "type": "github"
       },
       "original": {
@@ -369,11 +369,11 @@
     "sdl3": {
       "flake": false,
       "locked": {
-        "lastModified": 1771629149,
-        "narHash": "sha256-ev0QiKyj0O6gtk7cK/V0X5Noft0Zo/fMS+oM6emwynE=",
+        "lastModified": 1775257859,
+        "narHash": "sha256-vCz+jZ1Sl6Of60HXljciTjR3U4da0PldyFsG79qmQ7g=",
         "owner": "libsdl-org",
         "repo": "SDL",
-        "rev": "683181b47cfabd293e3ea409f838915b8297a4fd",
+        "rev": "5848e584a1b606de26e3dbd1c7e4ecbc34f807a6",
         "type": "github"
       },
       "original": {
@@ -385,11 +385,11 @@
     "sdl3-image": {
       "flake": false,
       "locked": {
-        "lastModified": 1769032711,
-        "narHash": "sha256-XRPHDcJ49sZa7y8TCWfS2gPOhpGyUnMMXVqvjV9f8E0=",
+        "lastModified": 1775333110,
+        "narHash": "sha256-LNEbXhUDB6OKk3HxwV+jANnskS82ewhQe8pDy+P6L40=",
         "owner": "libsdl-org",
         "repo": "SDL_image",
-        "rev": "ad58ecfc27a1bd09e510ceff8bbbdb1094806476",
+        "rev": "96a73a551a857b7c8d0ca3cc553a266eabbab6a7",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "vpinball": {
       "flake": false,
       "locked": {
-        "lastModified": 1775148595,
-        "narHash": "sha256-sJCgcKg5NAoxrh3TaadVvhyWGjlu2siv7Y9N/camsFs=",
+        "lastModified": 1776034317,
+        "narHash": "sha256-sRMbbOqjO29VIyiZdB6dMRr2we6+JjbZRlhYBitEJ+Y=",
         "owner": "vpinball",
         "repo": "vpinball",
-        "rev": "3b9197b64114a2f42b1b6eb7b326e921354a992f",
+        "rev": "2e25f5ebec2a19f81bc0fbe91d1bbb41fdd10250",
         "type": "github"
       },
       "original": {
