@@ -128,11 +128,11 @@
     "libdof": {
       "flake": false,
       "locked": {
-        "lastModified": 1776027465,
-        "narHash": "sha256-N+959A9gcZfoCXHUterNP2kEY80d6+wwyh2DUfkQxRA=",
+        "lastModified": 1775736052,
+        "narHash": "sha256-xJoutUUuroSdsRmuF4bg14n3xhdIDkVBzArd19rMnfY=",
         "owner": "jsm174",
         "repo": "libdof",
-        "rev": "37005ff75a7d4bb9bb5370acea8cf1c54affba21",
+        "rev": "1a887d98f442081d1d5d8fe9268ed4b96cb06eb0",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "vpinball": {
       "flake": false,
       "locked": {
-        "lastModified": 1776034317,
-        "narHash": "sha256-sRMbbOqjO29VIyiZdB6dMRr2we6+JjbZRlhYBitEJ+Y=",
+        "lastModified": 1775928059,
+        "narHash": "sha256-XIVzHyi/utgNkvHIorI9F0WRf3ytALmTYlllj9bdIrk=",
         "owner": "vpinball",
         "repo": "vpinball",
-        "rev": "2e25f5ebec2a19f81bc0fbe91d1bbb41fdd10250",
+        "rev": "51920b1ef5c9c4321e27255038b84e91b6a27c1c",
         "type": "github"
       },
       "original": {

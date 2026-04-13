@@ -58,20 +58,6 @@ stdenv.mkDerivation {
     cp make/CMakeLists_bgfx-linux-x64.txt CMakeLists.txt
   '';
 
-  #preConfigure = ''
-  #  echo "before configure"
-  #  pwd
-  #  cat CMakeLists.txt
-  #'';
-
-  #postConfigure = ''
-  #  echo "after configure"
-  #  pwd
-  #  ls -l
-  #  ls CMakeFiles
-  #  cat CMakeFiles/SerumPlugin.dir/build.make
-  #'';
-
   hardeningDisable = [ "format" ];
 
   cmakeFlags = [
@@ -80,6 +66,7 @@ stdenv.mkDerivation {
     "-DBUILD_SHARED=OFF"
     "-DPOST_BUILD_COPY_EXT_LIBS=OFF"
     "-DCMAKE_CXX_FLAGS=-mssse3"
+    "-DCMAKE_BUILD_TYPE=Release"
   ];
 
   installPhase = ''
