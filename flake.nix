@@ -226,7 +226,6 @@
 
       # TODO: convert these from overlays into flake packages.
       overlays.default = final: prev: {
-        vpx-editor = final.callPackage ./pkgs/vpx-editor { inherit inputs; };
         bgfx = final.callPackage ./pkgs/bgfx {
           bgfx-cmake = inputs.bgfx-cmake;
           bgfx-patch = inputs.bgfx-patch;
@@ -261,6 +260,10 @@
         {
 
           vpinball = pkgs.callPackage ./pkgs/vpinball { inherit inputs; };
+          vpinball-debug = pkgs.callPackage ./pkgs/vpinball {
+            inherit inputs;
+            buildType = "Debug";
+          };
 
           vpinfe = pkgs.callPackage ./pkgs/vpinfe { inherit inputs; };
           vpxtool = pkgs.callPackage ./pkgs/vpxtool { inherit inputs; };
@@ -301,10 +304,10 @@
                 # silently drops the submodules flag, which breaks the
                 # vendored SDL_image/SDL_ttf builds.
                 echo "Updating sdl3-ttf: ''${SDL_TTF_SHA}"
-                nix flake update sdl3-ttf --override-input sdl3-ttf "git+https://github.com/libsdl-org/SDL_ttf?submodules=1&rev=''${SDL_TTF_SHA}"
+                nix flake update sdl3-ttf --override-input sdl3-ttf "git+https://github.com/libsdl-org/SDL_ttf?submodules=1&allRefs=1&rev=''${SDL_TTF_SHA}"
 
                 echo "Updating sdl3-image: ''${SDL_IMAGE_SHA}"
-                nix flake update sdl3-image --override-input sdl3-image "git+https://github.com/libsdl-org/SDL_image?submodules=1&rev=''${SDL_IMAGE_SHA}"
+                nix flake update sdl3-image --override-input sdl3-image "git+https://github.com/libsdl-org/SDL_image?submodules=1&allRefs=1&rev=''${SDL_IMAGE_SHA}"
 
                 echo "Updating freeimage: ''${FREEIMAGE_SHA}"
                 nix flake update freeimage --override-input freeimage github:toxieainc/freeimage/''${FREEIMAGE_SHA}
