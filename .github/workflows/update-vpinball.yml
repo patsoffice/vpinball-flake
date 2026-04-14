@@ -1,0 +1,125 @@
+name: update-vpinball
+
+on:
+  schedule:
+    # Monday 14:00 UTC ≈ 06:00–07:00 America/Los_Angeles
+    - cron: '0 14 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Track upstream master and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: Checkout fork default branch
+        uses: actions/checkout@v4
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - name: Bump vpinball input to latest upstream master
+        run: nix flake update vpinball
+
+      - name: Cascade child inputs
+        id: cascade
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          nix develop .#updateInputs 2>&1 | tee cascade.log
+
+      - name: Detect transitive dep conflicts
+        id: conflicts
+        if: always()
+        run: |
+          if grep -qE 'hash mismatch|CONFLICT' cascade.log; then
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Transitive dependency conflict detected in cascade.log"
+          else
+            echo "conflict=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload cascade log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cascade-log
+          path: cascade.log
+          if-no-files-found: ignore
+
+      - name: Build vpinball
+        id: build
+        if: always()
+        continue-on-error: true
+        run: nix build .#vpinball -L
+
+      - name: Determine PR state
+        id: pr_state
+        if: always()
+        run: |
+          if [ "${{ steps.cascade.outcome }}" != "success" ] \
+             || [ "${{ steps.conflicts.outputs.conflict }}" = "true" ] \
+             || [ "${{ steps.build.outcome }}" != "success" ]; then
+            echo "draft=true" >> "$GITHUB_OUTPUT"
+            echo "status=🚨 Needs triage — cascade or build failed" >> "$GITHUB_OUTPUT"
+          else
+            echo "draft=false" >> "$GITHUB_OUTPUT"
+            echo "status=✅ Cascade clean, build green — ready for review" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create or update PR
+        if: always()
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/update-vpinball
+          base: main
+          commit-message: |
+            chore: cascade vpinball inputs from upstream master
+
+            Scheduled update workflow: bumps the `vpinball` input to
+            upstream master, cascades all child inputs via
+            `nix develop .#updateInputs`, and attempts a build.
+          title: "chore: bump vpinball + cascade child inputs"
+          body: |
+            ${{ steps.pr_state.outputs.status }}
+
+            Scheduled run of the vpinball update workflow:
+
+            1. `nix flake update vpinball` — bump to latest upstream master.
+            2. `nix develop .#updateInputs` — cascade child inputs from
+               `platforms/config.sh` files in `libdmdutil`, `libdof`, `libzedmd`.
+            3. `nix build .#vpinball -L` — verify the result compiles.
+
+            | Step | Outcome |
+            |---|---|
+            | Cascade | `${{ steps.cascade.outcome }}` |
+            | Conflict detected | `${{ steps.conflicts.outputs.conflict }}` |
+            | Build | `${{ steps.build.outcome }}` |
+
+            Full cascade log is attached as a workflow artifact:
+            <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>
+
+            **Do not merge without**:
+
+            1. Reviewing the `cascade-log` artifact for any `hash mismatch` warnings.
+            2. Smoke-testing a known-good table locally. See the runbook in
+               [`README.md`](../blob/main/README.md#update-runbook).
+          labels: |
+            vpinball-bump
+            automated
+          draft: ${{ steps.pr_state.outputs.draft }}
+
+      - name: Fail the job if cascade, conflict, or build flagged
+        if: steps.cascade.outcome != 'success' || steps.conflicts.outputs.conflict == 'true' || steps.build.outcome != 'success'
+        run: |
+          echo "::error::One or more gates failed. PR opened as draft for human triage. See the attached cascade-log artifact."
+          exit 1
