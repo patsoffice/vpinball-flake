@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
   ...
 }:
 stdenv.mkDerivation {
@@ -47,7 +48,7 @@ stdenv.mkDerivation {
     "-DSDL_OPENGLES=OFF"
     "-DSDL_X11=ON"
     "-DSDL_WAYLAND=ON"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

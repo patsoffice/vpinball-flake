@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "sockpp";
@@ -14,7 +15,7 @@ stdenv.mkDerivation {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

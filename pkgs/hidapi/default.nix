@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release"
 }:
 stdenv.mkDerivation {
   name = "hidapi";
@@ -20,7 +21,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DHIDAPI_WITH_LIBUSB=OFF"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "libzedmd";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     "-DBUILD_SHARED=ON"
     "-DBUILD_STATIC=OFF"
     "-DPOST_BUILD_COPY_EXT_LIBS=OFF"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

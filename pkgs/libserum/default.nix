@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "libserum";
@@ -18,7 +19,7 @@ stdenv.mkDerivation {
     "-DARCH=x64"
     "-DBUILD_STATIC=OFF"
     "-DBUILD_SHARED=ON"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {
