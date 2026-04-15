@@ -91,3 +91,4 @@ Long-term fix is an upstream conversation with vpinball/libdmdutil/libdof to rec
 ## License
 
 GPL-3.0. See [LICENSE](LICENSE). This is a fork of [raiford/vpinball-flake](https://github.com/raiford/vpinball-flake) — history preserved for attribution. Packaging improvements made here are upstream-contribution candidates.
+Tue Apr 14 19:37:56 PDT 2026
