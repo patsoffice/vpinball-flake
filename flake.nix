@@ -102,12 +102,14 @@
       repo = "libzip";
       flake = false;
     };
-    ffmpeg = {
-      type = "github";
-      owner = "FFmpeg";
-      repo = "FFmpeg";
-      flake = false;
-    };
+
+    # Disabled to use ffmpeg from upstream nixpkgs.
+    #ffmpeg = {
+    #  type = "github";
+    #  owner = "FFmpeg";
+    #  repo = "FFmpeg";
+    #  flake = false;
+    #};
 
     # https://github.com/vpinball/libdmdutil/blob/master/platforms/config.sh
     libusb = {
@@ -209,23 +211,7 @@
 
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      pkgsFor = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-          # Required for pinmame: legacy MAME files in the tree carry the
-          # original non-commercial MAME license, so nixpkgs classifies the
-          # package as unfreeRedistributable. Everything else in this flake
-          # is free software.
-          config.allowUnfree = true;
-          overlays = [ self.overlays.default ];
-        }
-      );
-    in
-    {
-
-      # TODO: convert these from overlays into flake packages.
-      overlays.default = final: prev: {
+      customPackages = final: prev: {
         bgfx = final.callPackage ./pkgs/bgfx {
           bgfx-cmake = inputs.bgfx-cmake;
           bgfx-patch = inputs.bgfx-patch;
@@ -241,29 +227,72 @@
         libserum = final.callPackage ./pkgs/libserum { inherit inputs; };
         libzedmd = final.callPackage ./pkgs/libzedmd { inherit inputs; };
         pinmame = final.callPackage ./pkgs/pinmame { inherit inputs; };
-        sdl3 = final.callPackage ./pkgs/sdl3 { inherit inputs; };
-        sdl3-ttf = final.callPackage ./pkgs/sdl3-ttf { inherit inputs; };
-        sdl3-image = final.callPackage ./pkgs/sdl3-image { inherit inputs; };
         sockpp = final.callPackage ./pkgs/sockpp { inherit inputs; };
         libusb = final.callPackage ./pkgs/libusb { inherit inputs; };
         libvni = final.callPackage ./pkgs/libvni { inherit inputs; };
         libftdi = final.callPackage ./pkgs/libftdi { inherit inputs; };
         libserialport = final.callPackage ./pkgs/libserialport { inherit inputs; };
         hidapi = final.callPackage ./pkgs/hidapi { inherit inputs; };
+
+        # SDL has a lot of custom build options in upstream nixpkgs for audio and video stuff.
+        # If necessary to force support for wayland you can add a .override to these to enable waylandSupport
+        sdl3 = prev.sdl3.overrideAttrs (old: {
+          src = inputs.sdl3;
+          version = "";
+        });
+        sdl3-ttf = prev.sdl3-ttf.overrideAttrs (old: {
+          src = inputs.sdl3-ttf;
+          version = "";
+        });
+        sdl3-image = prev.sdl3-image.overrideAttrs (old: {
+          src = inputs.sdl3-image;
+          version = "";
+        });
       };
+
+      pkgsFor = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          # Required for pinmame: legacy MAME files in the tree carry the
+          # original non-commercial MAME license, so nixpkgs classifies the
+          # package as unfreeRedistributable. Everything else in this flake
+          # is free software.
+          config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
+        }
+      );
+    in
+    {
+
+      overlays.default = final: prev: customPackages final prev;
 
       packages = forAllSystems (
         system:
         let
           pkgs = pkgsFor.${system};
+          customNames = builtins.attrNames (customPackages pkgs pkgs);
+
+          makeVPinball =
+            buildType:
+            let
+              relevantPkgs =
+                if buildType == "Release" then
+                  pkgs
+                else
+                  pkgs.extend (
+                    final: prev:
+                    pkgs.lib.genAttrs customNames (
+                      name: if prev.${name} ? override then prev.${name}.override { inherit buildType; } else prev.${name}
+                    )
+                  );
+            in
+            relevantPkgs.callPackage ./pkgs/vpinball { inherit inputs buildType; };
         in
         {
 
-          vpinball = pkgs.callPackage ./pkgs/vpinball { inherit inputs; };
-          vpinball-debug = pkgs.callPackage ./pkgs/vpinball {
-            inherit inputs;
-            buildType = "Debug";
-          };
+          vpinball = makeVPinball "Release";
+          vpinball-debug = makeVPinball "Debug";
 
           vpinfe = pkgs.callPackage ./pkgs/vpinfe { inherit inputs; };
           vpxtool = pkgs.callPackage ./pkgs/vpxtool { inherit inputs; };
@@ -333,8 +362,8 @@
                 echo "Updating libdof: ''${LIBDOF_SHA}"
                 nix flake update libdof --override-input libdof github:jsm174/libdof/''${LIBDOF_SHA}
 
-                echo "Updating ffmpeg: ''${FFMPEG_SHA}"
-                nix flake update ffmpeg --override-input ffmpeg github:FFmpeg/FFmpeg/''${FFMPEG_SHA}
+                #echo "Updating ffmpeg: ''${FFMPEG_SHA}"
+                #nix flake update ffmpeg --override-input ffmpeg github:FFmpeg/FFmpeg/''${FFMPEG_SHA}
 
                 echo "Updating libzip: ''${LIBZIP_SHA}"
                 nix flake update libzip --override-input libzip github:nih-at/libzip/''${LIBZIP_SHA}

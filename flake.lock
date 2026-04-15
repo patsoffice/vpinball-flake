@@ -45,22 +45,6 @@
         "type": "github"
       }
     },
-    "ffmpeg": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740961029,
-        "narHash": "sha256-GyS8imOqfOUPxXrzCiQtzCQIIH6bvWmQAB0fKUcRsW4=",
-        "owner": "FFmpeg",
-        "repo": "FFmpeg",
-        "rev": "db69d06eeeab4f46da15030a80d539efb4503ca8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FFmpeg",
-        "repo": "FFmpeg",
-        "type": "github"
-      }
-    },
     "freeimage": {
       "flake": false,
       "locked": {
@@ -303,11 +287,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771848320,
-        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
+        "lastModified": 1776169885,
+        "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
+        "rev": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
         "type": "github"
       },
       "original": {
@@ -338,7 +322,6 @@
         "bgfx-cmake": "bgfx-cmake",
         "bgfx-patch": "bgfx-patch",
         "cargs": "cargs",
-        "ffmpeg": "ffmpeg",
         "freeimage": "freeimage",
         "hidapi": "hidapi",
         "libaltsound": "libaltsound",
