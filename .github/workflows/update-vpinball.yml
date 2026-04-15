@@ -10,6 +10,13 @@ permissions:
   contents: write
   pull-requests: write
 
+# Opt into Node.js 24 now so the deprecation warning on actions
+# pinned to Node 20 (checkout@v4, upload-artifact@v4,
+# peter-evans/create-pull-request@v7) goes away. Safe to remove
+# once Node 24 becomes the runner default in June 2026.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   update:
     name: Track upstream master and build
@@ -26,6 +33,17 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             accept-flake-config = true
+
+      # Registers patsoffice.cachix.org as a substituter AND installs a
+      # post-build hook that pushes any new store paths. With this in
+      # place, the pinball cabinet pulls prebuilt vpinball binaries from
+      # the cache instead of rebuilding from source (~30-60 min saved
+      # per just switch after a vpinball bump).
+      - name: Set up cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: patsoffice
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Bump vpinball input to latest upstream master
         run: nix flake update vpinball
