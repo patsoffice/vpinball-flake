@@ -388,7 +388,6 @@
         "allRefs": true,
         "lastModified": 1775333110,
         "narHash": "sha256-4VXaY62hLz+egOyKJMltfX9jDel53+x1DKLFOBINK9Q=",
-        "ref": "refs/heads/main",
         "rev": "96a73a551a857b7c8d0ca3cc553a266eabbab6a7",
         "revCount": 1996,
         "submodules": true,
