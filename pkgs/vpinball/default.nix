@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release"
 }:
 stdenv.mkDerivation {
   pname = "vpinball";
@@ -66,7 +67,7 @@ stdenv.mkDerivation {
     "-DBUILD_SHARED=OFF"
     "-DPOST_BUILD_COPY_EXT_LIBS=OFF"
     "-DCMAKE_CXX_FLAGS=-mssse3"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   installPhase = ''

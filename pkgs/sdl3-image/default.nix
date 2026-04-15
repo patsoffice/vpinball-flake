@@ -4,6 +4,7 @@
   pkgs,
   inputs,
   sdl3,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "sdl3-image";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     "-DSDLIMAGE_AVIF=OFF"
     "-DSDLIMAGE_WEBP=OFF"
     "-DSDL3_DIR=${sdl3}"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

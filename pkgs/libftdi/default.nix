@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "libftdi";
@@ -28,6 +29,7 @@ stdenv.mkDerivation {
     "-DLIBUSB_INCLUDE_DIR=${pkgs.libusb}/include/libusb-1.0"
     "-DLIBUSB_LIBRARIES=${pkgs.libusb}/lib/libusb-1.0.so"
     "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

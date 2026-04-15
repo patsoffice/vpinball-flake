@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "pinmame";
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
     "-DPLATFORM=linux"
     "-DARCH=x64"
     "-DBUILD_STATIC=OFF"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
     "-DPOST_BUILD_COPY_EXT_LIBS=OFF"
   ];
 

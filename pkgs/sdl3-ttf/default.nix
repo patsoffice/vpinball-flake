@@ -4,6 +4,7 @@
   pkgs,
   sdl3,
   inputs,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "sdl3-ttf";
@@ -24,7 +25,7 @@ stdenv.mkDerivation {
     "-DSDLTTF_VENDORED=ON"
     "-DSDLTTF_HARFBUZZ=ON"
     "-DSDL3_DIR=${sdl3}"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {

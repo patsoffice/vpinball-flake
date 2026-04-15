@@ -5,6 +5,7 @@
   fetchFromGitHub,
   bgfx-cmake,
   bgfx-patch,
+  buildType ? "Release",
 }:
 stdenv.mkDerivation {
   name = "bgfx";
@@ -65,7 +66,7 @@ stdenv.mkDerivation {
     "-DBGFX_BUILD_EXAMPLES=OFF"
     "-DBGFX_CONFIG_MULTITHREADED=ON"
     "-DBGFX_CONFIG_MAX_FRAME_BUFFERS=256"
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=${buildType}"
   ];
 
   meta = with lib; {
