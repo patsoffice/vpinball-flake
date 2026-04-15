@@ -3,6 +3,7 @@
   stdenv,
   pkgs,
   inputs,
+  ...
 }:
 stdenv.mkDerivation {
   name = "libusb";

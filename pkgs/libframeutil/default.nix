@@ -2,6 +2,7 @@
   lib,
   stdenv,
   inputs,
+  ...
 }:
 stdenv.mkDerivation {
   name = "libframeutil";

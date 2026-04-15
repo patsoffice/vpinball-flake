@@ -209,23 +209,7 @@
 
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      pkgsFor = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-          # Required for pinmame: legacy MAME files in the tree carry the
-          # original non-commercial MAME license, so nixpkgs classifies the
-          # package as unfreeRedistributable. Everything else in this flake
-          # is free software.
-          config.allowUnfree = true;
-          overlays = [ self.overlays.default ];
-        }
-      );
-    in
-    {
-
-      # TODO: convert these from overlays into flake packages.
-      overlays.default = final: prev: {
+      customPackages = final: {
         bgfx = final.callPackage ./pkgs/bgfx {
           bgfx-cmake = inputs.bgfx-cmake;
           bgfx-patch = inputs.bgfx-patch;
@@ -252,18 +236,49 @@
         hidapi = final.callPackage ./pkgs/hidapi { inherit inputs; };
       };
 
+      pkgsFor = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          # Required for pinmame: legacy MAME files in the tree carry the
+          # original non-commercial MAME license, so nixpkgs classifies the
+          # package as unfreeRedistributable. Everything else in this flake
+          # is free software.
+          config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
+        }
+      );
+    in
+    {
+
+      overlays.default = final: prev: customPackages final;
+
       packages = forAllSystems (
         system:
         let
           pkgs = pkgsFor.${system};
+          customNames = builtins.attrNames (customPackages pkgs);
+
+          makeVPinball =
+            buildType:
+            let
+              relevantPkgs =
+                if buildType == "Release" then
+                  pkgs
+                else
+                  pkgs.extend (
+                    final: prev:
+                    pkgs.lib.genAttrs customNames (
+                      name: if prev.${name} ? override then prev.${name}.override { inherit buildType; } else prev.${name}
+                    )
+                  );
+            in
+            relevantPkgs.callPackage ./pkgs/vpinball { inherit inputs buildType; };
         in
         {
 
-          vpinball = pkgs.callPackage ./pkgs/vpinball { inherit inputs; };
-          vpinball-debug = pkgs.callPackage ./pkgs/vpinball {
-            inherit inputs;
-            buildType = "Debug";
-          };
+          vpinball = makeVPinball "Release";
+          vpinball-debug = makeVPinball "Debug";
 
           vpinfe = pkgs.callPackage ./pkgs/vpinfe { inherit inputs; };
           vpxtool = pkgs.callPackage ./pkgs/vpxtool { inherit inputs; };
