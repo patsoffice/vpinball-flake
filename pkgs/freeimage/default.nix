@@ -32,7 +32,15 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Open source image library supporting common graphics file formats (toxieainc fork used by vpinball)";
     homepage = "https://github.com/toxieainc/freeimage";
-    license = with licenses; [ freeimage gpl2Plus gpl3Plus ];
+    license = with licenses; [
+      {
+        fullName = "FreeImage Public License - Version 1.0";
+        url = "https://freeimage.sourceforge.io/freeimage-license.txt";
+        free = true;
+      }
+      gpl2Plus
+      gpl3Plus
+    ];
     platforms = platforms.linux;
   };
 

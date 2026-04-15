@@ -385,33 +385,37 @@
     "sdl3-image": {
       "flake": false,
       "locked": {
-        "lastModified": 1775333110,
-        "narHash": "sha256-LNEbXhUDB6OKk3HxwV+jANnskS82ewhQe8pDy+P6L40=",
-        "owner": "libsdl-org",
-        "repo": "SDL_image",
-        "rev": "96a73a551a857b7c8d0ca3cc553a266eabbab6a7",
-        "type": "github"
+        "lastModified": 1775501936,
+        "narHash": "sha256-sXtz+HxbezYdea4oVjymfcDTTVIYtWQH/fcCWLNly0M=",
+        "ref": "refs/heads/main",
+        "rev": "1aedddcbd205c4e1ea0f99fdb2c785acc8e2489b",
+        "revCount": 2009,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/libsdl-org/SDL_image"
       },
       "original": {
-        "owner": "libsdl-org",
-        "repo": "SDL_image",
-        "type": "github"
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/libsdl-org/SDL_image"
       }
     },
     "sdl3-ttf": {
       "flake": false,
       "locked": {
-        "lastModified": 1743443850,
-        "narHash": "sha256-g7LfLxs7yr7bezQWPWn8arNuPxCfYLCO4kzXmLRUUSY=",
-        "owner": "libsdl-org",
-        "repo": "SDL_ttf",
-        "rev": "a1ce3670aec736ecbf0936c43f2f0cc53aa61e5b",
-        "type": "github"
+        "lastModified": 1774707116,
+        "narHash": "sha256-Nca5Y/5gEb84NXMv5PqkHauKPuuSXsh1X3if/nKK7kA=",
+        "ref": "refs/heads/main",
+        "rev": "de8c8a3380cca39cb30331576228c20d68a30424",
+        "revCount": 1284,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/libsdl-org/SDL_ttf"
       },
       "original": {
-        "owner": "libsdl-org",
-        "repo": "SDL_ttf",
-        "type": "github"
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/libsdl-org/SDL_ttf"
       }
     },
     "sockpp": {
@@ -433,11 +437,11 @@
     "vpinball": {
       "flake": false,
       "locked": {
-        "lastModified": 1775928059,
-        "narHash": "sha256-XIVzHyi/utgNkvHIorI9F0WRf3ytALmTYlllj9bdIrk=",
+        "lastModified": 1776253659,
+        "narHash": "sha256-V6cDPJQq8eAvvQb8DWYTXNtoIhfGCm3VrmoOuILzzWo=",
         "owner": "vpinball",
         "repo": "vpinball",
-        "rev": "51920b1ef5c9c4321e27255038b84e91b6a27c1c",
+        "rev": "233cd342da80fa9c22cd6d09cc79070c8f12d0c2",
         "type": "github"
       },
       "original": {

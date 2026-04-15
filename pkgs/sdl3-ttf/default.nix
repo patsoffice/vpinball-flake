@@ -16,7 +16,6 @@ stdenv.mkDerivation {
 
   buildInputs = with pkgs; [
     sdl3
-    harfbuzz #TODO: this is only used for iOS builds, make it conditional.
   ];
 
   cmakeFlags = [

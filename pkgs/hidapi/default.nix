@@ -16,11 +16,10 @@ stdenv.mkDerivation {
 
   buildInputs = with pkgs; [
     systemd # for libudev
-    libusb
   ];
 
   cmakeFlags = [
-    "-DHIAPI_WITH_LIBUSB=OFF"
+    "-DHIDAPI_WITH_LIBUSB=OFF"
     "-DCMAKE_BUILD_TYPE=Release"
   ];
 

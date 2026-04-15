@@ -92,5 +92,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/vpinball/vpinball";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
+    mainProgram = "VPinballX";
   };
 }

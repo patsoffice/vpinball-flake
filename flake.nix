@@ -78,16 +78,22 @@
       repo = "SDL";
       flake = false;
     };
+    # sdl3-image and sdl3-ttf are fetched via `type = "git"` with
+    # submodules = true so that their vendored format libraries
+    # (zlib/libpng/libjpeg for image; freetype/harfbuzz for ttf) come
+    # down with the source. Matching what upstream vpinball is tested
+    # against avoids font rendering / image decode drift that can
+    # result from nixpkgs version skew.
     sdl3-image = {
-      type = "github";
-      owner = "libsdl-org";
-      repo = "SDL_image";
+      type = "git";
+      url = "https://github.com/libsdl-org/SDL_image";
+      submodules = true;
       flake = false;
     };
     sdl3-ttf = {
-      type = "github";
-      owner = "libsdl-org";
-      repo = "SDL_ttf";
+      type = "git";
+      url = "https://github.com/libsdl-org/SDL_ttf";
+      submodules = true;
       flake = false;
     };
     libzip = {
@@ -236,9 +242,9 @@
         libserum = final.callPackage ./pkgs/libserum { inherit inputs; };
         libzedmd = final.callPackage ./pkgs/libzedmd { inherit inputs; };
         pinmame = final.callPackage ./pkgs/pinmame { inherit inputs; };
-        #sdl3 = final.callPackage ./pkgs/sdl3 { inherit inputs; };
-        #sdl3-ttf = final.callPackage ./pkgs/sdl3-ttf { inherit inputs; };
-        #sdl3-image = final.callPackage ./pkgs/libdof { inherit inputs; };
+        sdl3 = final.callPackage ./pkgs/sdl3 { inherit inputs; };
+        sdl3-ttf = final.callPackage ./pkgs/sdl3-ttf { inherit inputs; };
+        sdl3-image = final.callPackage ./pkgs/sdl3-image { inherit inputs; };
         sockpp = final.callPackage ./pkgs/sockpp { inherit inputs; };
         libusb = final.callPackage ./pkgs/libusb { inherit inputs; };
         libvni = final.callPackage ./pkgs/libvni { inherit inputs; };
@@ -290,11 +296,15 @@
                 echo "Updating sdl3: ''${SDL_SHA}"
                 nix flake update sdl3 --override-input sdl3 github:libsdl-org/SDL/''${SDL_SHA}
 
+                # Use git+ URLs so submodules=true from the flake input
+                # is preserved across overrides. The github: shorthand
+                # silently drops the submodules flag, which breaks the
+                # vendored SDL_image/SDL_ttf builds.
                 echo "Updating sdl3-ttf: ''${SDL_TTF_SHA}"
-                nix flake update sdl3-ttf --override-input sdl3-ttf github:libsdl-org/SDL_ttf/''${SDL_TTF_SHA}
+                nix flake update sdl3-ttf --override-input sdl3-ttf "git+https://github.com/libsdl-org/SDL_ttf?submodules=1&rev=''${SDL_TTF_SHA}"
 
                 echo "Updating sdl3-image: ''${SDL_IMAGE_SHA}"
-                nix flake update sdl3-image --override-input sdl3-image github:libsdl-org/SDL_image/''${SDL_IMAGE_SHA}
+                nix flake update sdl3-image --override-input sdl3-image "git+https://github.com/libsdl-org/SDL_image?submodules=1&rev=''${SDL_IMAGE_SHA}"
 
                 echo "Updating freeimage: ''${FREEIMAGE_SHA}"
                 nix flake update freeimage --override-input freeimage github:toxieainc/freeimage/''${FREEIMAGE_SHA}
