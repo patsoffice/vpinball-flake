@@ -385,6 +385,7 @@
     "sdl3-image": {
       "flake": false,
       "locked": {
+        "allRefs": true,
         "lastModified": 1775501936,
         "narHash": "sha256-sXtz+HxbezYdea4oVjymfcDTTVIYtWQH/fcCWLNly0M=",
         "ref": "refs/heads/main",
@@ -395,6 +396,7 @@
         "url": "https://github.com/libsdl-org/SDL_image"
       },
       "original": {
+        "allRefs": true,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/libsdl-org/SDL_image"
@@ -403,6 +405,7 @@
     "sdl3-ttf": {
       "flake": false,
       "locked": {
+        "allRefs": true,
         "lastModified": 1774707116,
         "narHash": "sha256-Nca5Y/5gEb84NXMv5PqkHauKPuuSXsh1X3if/nKK7kA=",
         "ref": "refs/heads/main",
@@ -413,6 +416,7 @@
         "url": "https://github.com/libsdl-org/SDL_ttf"
       },
       "original": {
+        "allRefs": true,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/libsdl-org/SDL_ttf"
